@@ -15,5 +15,5 @@ npm install --save https://github.com/uts-eresearch/sails-hook-redbox-config-uti
 ## Usage
 
 ```javascript
-const { HookConfig } = require('uts-eresearch/sails-hook-redbox-config-utils');
+const { HookConfig } = require('sails-hook-redbox-hook-config-utils');
 ```
