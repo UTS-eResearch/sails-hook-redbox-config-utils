@@ -1,0 +1,38 @@
+{
+  "name": "sails-hook-redbox-hook-config-utils",
+  "version": "1.0.0",
+  "description": "Hook Config and Core tools for sails-redbox",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "compile": "node_modules/.bin/tsc --project tsconfig.json"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/UTS-eResearch/sails-hook-redbox-config-utils.git"
+  },
+  "keywords": [
+    "sails",
+    "hook",
+    "redbox"
+  ],
+  "author": "Moises Sacal",
+  "license": "GPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/UTS-eResearch/sails-hook-redbox-config-utils/issues"
+  },
+  "homepage": "https://github.com/UTS-eResearch/sails-hook-redbox-config-utils#readme",
+  "dependencies": {
+    "ncp": "^2.0.0",
+    "path": "^0.12.7",
+    "path-exists": "^3.0.0",
+    "qs": "^6.9.0",
+    "request": "^2.87.0",
+    "request-promise": "^4.2.2",
+    "rxjs": "6.2.0",
+    "rxjs-compat": "6.2.0",
+    "sails": "1.1.0",
+    "typescript": "4.0",
+    "typings": "^2.1.1"
+  }
+}
