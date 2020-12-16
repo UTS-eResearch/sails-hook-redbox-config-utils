@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/UTS-eResearch/sails-hook-redbox-config-utils#readme",
   "dependencies": {
+    "fs-extra": "^9.0.1",
     "ncp": "^2.0.0",
     "path": "^0.12.7",
     "path-exists": "^3.0.0",
