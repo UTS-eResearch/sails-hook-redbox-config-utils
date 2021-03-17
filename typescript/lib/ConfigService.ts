@@ -51,6 +51,7 @@ export module Services {
     }
 
     public mergeHookConfig(hookName:string, configMap:any=sails.config, config_dirs: string[] = ["form-config", "config"], dontMergeFields:any[] = ["fields"]) {
+      const that = this;
       var hook_root_dir = `${sails.config.appPath}/node_modules/${hookName}`;
       var appPath = sails.config.appPath;
       // check if the app path was launched from the hook directory, e.g. when launching tests.
@@ -60,8 +61,16 @@ export module Services {
       }
       const hook_log_header = hookName;
       let origDontMerge = _.clone(dontMergeFields);
-      const concatArrsFn = function (objValue, srcValue, key) {
-        if (_.indexOf(dontMergeFields, key) != -1) {
+      const concatArrsFn = function (objValue, srcValue, key, object, source, stack) {
+        const dontMergeIndex = _.findIndex(dontMergeFields, (o) => { return _.isString(o) ? _.isEqual(o, key) : !_.isEmpty(o[key]) });
+        if (dontMergeIndex != -1) {
+          if (!_.isString(dontMergeFields[dontMergeIndex])) {
+            if (dontMergeFields[key] == "this_file") {
+              return srcValue;
+            } else {
+              return objValue;
+            }
+          }
           return srcValue;
         }
       }
@@ -127,6 +136,7 @@ export module Services {
         fs.ensureSymlinkSync(`${appPath}/api/core`, `${hook_root_dir}/api/core`);
       }
       sails.log.verbose(`${hook_log_header}::Adding custom API elements...`);
+
       let apiDirs = ["services"];
       _.each(apiDirs, (apiType) => {
         const files = this.walkDirSync(`${hook_root_dir}/api/${apiType}`, []);
@@ -141,6 +151,23 @@ export module Services {
           });
         }
       });
+
+      sails.on('lifted', function() {
+        let apiDirs = ["controllers"];
+        _.each(apiDirs, (apiType) => {
+          const files = that.walkDirSync(`${hook_root_dir}/api/${apiType}`, []);
+          sails.log.verbose(`${hook_log_header}::Processing '${apiType}':`);
+          sails.log.verbose(JSON.stringify(files));
+          if (!_.isEmpty(files)) {
+            _.each(files, (file) => {
+              const apiDef = require(file);
+              const apiElemName = _.toLower(basename(file, '.js'))
+              sails[apiType][apiElemName] = apiDef;
+            });
+          }
+        });
+      });
+
       // for models, we need to copy them over to `api/models`...
       const modelFiles = this.walkDirSync(`${hook_root_dir}/api/models`, []);
       if (!_.isEmpty(modelFiles)) {

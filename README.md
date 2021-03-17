@@ -3,25 +3,25 @@
 Use this in your sails hooks
 
 ```shell script
-npm install --save @uts-eresearch/sails-hook-redbox-config-utils
+npm install --save @uts-eresearch/sails-redbox-config-utils
 ```
 
 or
 
 ```shell script
-npm install --save https://github.com/uts-eresearch/sails-hook-redbox-config-utils
+npm install --save https://github.com/uts-eresearch/sails-redbox-config-utils
 ```
 
 ## Usage
 
 ```javascript
-const { HookConfig } = require('sails-hook-redbox-hook-config-utils');
+const { HookConfig } = require('sails-redbox-hook-config-utils');
 ```
 or
 ```javascript
-const services = require('sails-hook-redbox-hook-config-utils').CoreService;
+const services = require('sails-redbox-config-utils').CoreService;
 ```
 or
 ```javascript
-const controller = require('sails-hook-redbox-hook-config-utils').CoreController;
+const controller = require('sails-redbox-config-utils').CoreController;
 ```
